@@ -1,8 +1,16 @@
-FROM node:latest
-WORKDIR /src/server
-COPY package*.json ./
+# Use the official Node.js image as the base image
+FROM node:16
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the application files into the working directory
+COPY . /app
+
+# Install the application dependencies
 RUN npm install
-COPY . .
-RUN npm run build
-EXPOSE 8080
-CMD ["npm", "run:dev"]
+
+EXPOSE 8012
+
+# Define the entry point for the container
+CMD ["npm", "start"]
