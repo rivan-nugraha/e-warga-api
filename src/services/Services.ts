@@ -6,6 +6,7 @@ import Logger from "./Logger/Logger";
 import { SendPartialSocket } from "./PartialSocket/PartialSocket";
 import Security from "./Security/Security";
 import TransactionService from "./TransactionServices/TransactionServices";
+import UserService from "./UserService/UserService";
 
 class Services{
     private db: any;
@@ -20,6 +21,7 @@ class Services{
     public partialSocket: SendPartialSocket;
     public security: Security;
     public dateFormat: DateFormatService;
+    public UserService: UserService;
 
     constructor(db: any, variables: any){
         this.db = db;
@@ -36,6 +38,7 @@ class Services{
         this.partialSocket = new SendPartialSocket(this.cache);
         this.security = new Security(this.variables, this.cache);
         this.dateFormat = new DateFormatService();
+        this.UserService = new UserService()
     };
 }
 

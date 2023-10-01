@@ -9,6 +9,7 @@ export class SystemRoutes extends RouteBase{
     getRoutes(){
         this.buildRoute('/system/get', 'get', 'getSystem', false);
         this.buildRoute('/system/install', 'post', 'installSystem', true);
+        this.buildRoute('/system/insert-user', "post", "addUser", false);
 
         return this.routes;
     }

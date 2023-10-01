@@ -1,3 +1,4 @@
+import { SuperUserMockData } from "../../mock/MasterAndSuperUserMockData";
 import { SystemBodyIgnore } from "../../constant/formated/ignore/system-ignore";
 import ControllerBase from "../base/ControllerBase";
 const VERSION = require('../../../version.json');
@@ -43,4 +44,19 @@ export default class SystemController extends ControllerBase{
             return this.error(error);
         }
     }
+
+    async addUser() {
+        try {
+          for (const index in SuperUserMockData) {
+            SuperUserMockData[index].password =
+              await this.repository.global.service.UserService.hashPassword(
+                SuperUserMockData[index].password
+              );
+            await this.repository.User.insertUser(SuperUserMockData[index]);
+          }
+          return this.success(`Success Adding User`);
+        } catch (error) {
+          return this.error(error);
+        }
+      }
 }
