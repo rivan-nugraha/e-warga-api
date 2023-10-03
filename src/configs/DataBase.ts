@@ -5,7 +5,7 @@ class DataBase {
   private logger: any;
   public connection: any;
 
-  constructor (variables: any, logger: any) {
+  constructor(variables: any, logger: any) {
     const { urlDb } = variables;
 
     this.urlDb = urlDb;
@@ -14,14 +14,15 @@ class DataBase {
     this.connect();
   }
 
-  async connect () {
+  async connect() {
     const optionConnClient = {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      retryWrites: true
+      retryWrites: true,
     };
 
-    return await mongoose.connect(this.urlDb, optionConnClient)
+    return await mongoose
+      .connect(this.urlDb, optionConnClient)
       .then((connection: any) => {
         this.logger.info("Success connect to database.");
         return connection;
@@ -31,7 +32,7 @@ class DataBase {
       });
   }
 
-  getDb () {
+  getDb() {
     return mongoose;
   }
 }

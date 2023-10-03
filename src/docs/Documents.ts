@@ -6,16 +6,14 @@ class Documents {
   private serverDoc: any;
   private paths: any;
 
-  constructor () {
+  constructor() {
     this.serverDoc = new ServerDoc();
     this.paths = {
-      paths: Object.assign(
-        new UsersDoc().getDoc()
-      )
+      paths: Object.assign(new UsersDoc().getDoc()),
     };
   }
 
-  getDoc () {
+  getDoc() {
     const swaggerDoc = Object.assign(this.serverDoc.getInfo(), this.paths);
     return swaggerDoc;
   }

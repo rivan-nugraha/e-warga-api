@@ -13,11 +13,11 @@ import Logger from "./services/Logger/Logger";
 
 dotenv.config();
 const variables = new Variables();
-const dataBase = new DataBase(variables.getVariables(), new Logger())
+const dataBase = new DataBase(variables.getVariables(), new Logger());
 const service = new Service(dataBase, variables.getVariables());
 
 const app = new App(
-  new Routes,
+  new Routes(),
   new Repository(dataBase, jf, service),
   variables.getVariables(),
   service

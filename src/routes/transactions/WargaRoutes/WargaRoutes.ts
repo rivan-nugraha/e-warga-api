@@ -1,15 +1,40 @@
 import WargaController from "../../../controllers/transactions/WargaController/WargaController";
 import RouteBase from "../../base/RouteBase";
 
-export default class WargaRoutes extends RouteBase{
-    constructor(){
-        super(WargaController)
-    }
+export default class WargaRoutes extends RouteBase {
+  constructor() {
+    super(WargaController);
+  }
 
-    getRoutes () {
-        this.buildRoute("/warga/insert-admin", "post", "insertDataTotalWarga", true);
-        this.buildRoute("/warga/exist-data-admin", "get", "getWargaExistData", true);
+  getRoutes() {
+    this.buildRoute(
+      "/warga/insert-admin",
+      "post",
+      "insertDataTotalWarga",
+      true
+    );
+    
+    this.buildRoute(
+      "/warga/exist-data-admin",
+      "get",
+      "getWargaExistData",
+      true
+    );
 
-        return this.routes;
-    }
+    this.buildRoute(
+      "/warga/get-total",
+      "get",
+      "GetTotalWargaByBulanAndTahun",
+      true
+    );
+
+    this.buildRoute(
+      "/warga/edit-total",
+      "put",
+      "EditTotalWarga",
+      true
+    )
+
+    return this.routes;
+  }
 }

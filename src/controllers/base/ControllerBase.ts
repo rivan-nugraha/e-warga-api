@@ -1,45 +1,45 @@
 import Repository from "../../repositories/Repository";
 import Logger from "../../services/Logger/Logger";
 
-class ControllerBase{
-    public params: any;
-    public query: any;
-    public headers: any;
-    public body: any;
-    public send: any;
-    public repository: Repository;
-    public user: any;
-    public res: any;
-    public req: any;
-    public io: any;
-    public logger: any;
+class ControllerBase {
+  public params: any;
+  public query: any;
+  public headers: any;
+  public body: any;
+  public send: any;
+  public repository: Repository;
+  public user: any;
+  public res: any;
+  public req: any;
+  public io: any;
+  public logger: any;
 
-    constructor ({
-      params,
-      query,
-      headers,
-      body,
-      send,
-      repository,
-      user,
-      req,
-      res,
-      io
-    }: any) {
-      this.params = params;
-      this.query = query;
-      this.headers = headers;
-      this.body = body;
-      this.send = send;
-      this.repository = repository;
-      this.user = user;
-      this.req = req;
-      this.res = res;
-      this.io = io;
-      this.logger = new Logger();
-    }
+  constructor({
+    params,
+    query,
+    headers,
+    body,
+    send,
+    repository,
+    user,
+    req,
+    res,
+    io,
+  }: any) {
+    this.params = params;
+    this.query = query;
+    this.headers = headers;
+    this.body = body;
+    this.send = send;
+    this.repository = repository;
+    this.user = user;
+    this.req = req;
+    this.res = res;
+    this.io = io;
+    this.logger = new Logger();
+  }
 
-  error (err: any) {
+  error(err: any) {
     const status = err.statusCode || err.status;
     const statusCode = status || 500;
 
@@ -48,44 +48,51 @@ class ControllerBase{
     this.send(statusCode, message);
   }
 
-  success (data: any) {
+  success(data: any) {
     this.send(200, data);
   }
 
-  async createQueryRunner () {
+  async createQueryRunner() {
     await this.repository.global.service.transactionService.createQueryRunner();
   }
 
-  async releaseQueryRunner () {
+  async releaseQueryRunner() {
     await this.repository.global.service.transactionService.releaseQueryRunner();
   }
 
-  async startTransaction () {
+  async startTransaction() {
     return await this.repository.global.service.transactionService.startTransaction();
   }
 
-  async startTransactionV2 () {
+  async startTransactionV2() {
     return await this.repository.global.service.transactionService.startTransactionV2();
   }
 
-  async endSession (session: any) {
+  async endSession(session: any) {
     await this.repository.global.service.transactionService.endSession(session);
   }
 
-  async commitTransaction (session: any) {
-    await this.repository.global.service.transactionService.commitTransaction(session);
+  async commitTransaction(session: any) {
+    await this.repository.global.service.transactionService.commitTransaction(
+      session
+    );
   }
 
-  async rollbackTransaction (session: any) {
-    await this.repository.global.service.transactionService.rollbackTransaction(session);
+  async rollbackTransaction(session: any) {
+    await this.repository.global.service.transactionService.rollbackTransaction(
+      session
+    );
   }
 
-  formatStringObject (dataObject: any, dataIgnore: any) {
-    const result = this.repository.global.service.formatStringObject.format(dataObject, dataIgnore);
+  formatStringObject(dataObject: any, dataIgnore: any) {
+    const result = this.repository.global.service.formatStringObject.format(
+      dataObject,
+      dataIgnore
+    );
     return result;
   }
 
-  getErrorFuncName (error: Error) {
+  getErrorFuncName(error: Error) {
     const caller = error.stack?.split("\n")[2].trim();
     return caller?.match(/\s(\w+)/)?.[1];
   }

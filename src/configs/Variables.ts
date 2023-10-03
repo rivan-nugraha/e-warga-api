@@ -5,7 +5,7 @@ class Variables {
   private urlDb: any;
   private urlDigiAPI: any;
 
-  constructor () {
+  constructor() {
     this.mode = process.env.NGO_MODE_API;
     this.jwtPrivateKey = process.env.NGO_JWTKEY_API;
     this.port = process.env.NGO_PORT_API;
@@ -14,7 +14,7 @@ class Variables {
     this.checkVariables();
   }
 
-  checkVariables () {
+  checkVariables() {
     if (!this.mode) throw new Error("ERROR: MODE api not found!");
     if (!this.jwtPrivateKey) throw new Error("ERROR: JWT key api not found!");
     if (!this.port) throw new Error("ERROR: Port api not found!");
@@ -23,12 +23,12 @@ class Variables {
     }
   }
 
-  getVariables () {
+  getVariables() {
     return {
       mode: this.mode,
       jwtPrivateKey: this.jwtPrivateKey,
       port: this.port,
-      urlDb: this.urlDb
+      urlDb: this.urlDb,
     };
   }
 }

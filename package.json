@@ -8,7 +8,9 @@
     "lint": "eslint . --fix",
     "build": "rm -rf build/ && prettier --write src/ && tsc",
     "start:dev": "webpack --config webpack.dev.js",
-    "run:dev": "nodemon ./build/index.js"
+    "run:dev": "nodemon ./build/index.js",
+    "build:production": "webpack --config webpack.prod.js --mode=production",
+    "build:development": "webpack --config webpack.dev.js --mode=development"
   },
   "keywords": [],
   "author": "Irvan Nugraha",

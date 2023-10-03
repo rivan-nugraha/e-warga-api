@@ -10,6 +10,6 @@ module.exports = merge(common, {
   },
   output: {
     path: path.resolve(__dirname, "build"),
-    filename: "kresno-pusat-api.js"
+    filename: "e-warga-api.js"
   }
 });

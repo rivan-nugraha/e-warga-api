@@ -1,7 +1,7 @@
 import { any } from "joiful";
 
 class ServerDoc {
-  getInfo () {
+  getInfo() {
     return {
       openapi: "3.0.1",
       info: {
@@ -12,34 +12,34 @@ class ServerDoc {
         contact: {
           name: "Irvan Nugraha",
           email: "piksi.irvan.18402043@gmail.com",
-          url: "https://feliex1992.github.io"
+          url: "https://feliex1992.github.io",
         },
         license: {
           name: "MIT",
-          url: "https://opensource.org/licenses/MIT"
-        }
+          url: "https://opensource.org/licenses/MIT",
+        },
       },
       servers: [
         {
           url: "http://localhost:7001/api/v1",
-          description: "Local server"
+          description: "Local server",
         },
         {
           url: "http://192.168.1.16:7001/api/v1",
-          description: "Network server"
-        }
+          description: "Network server",
+        },
       ],
       security: [
         {
-          ApiKeyAuth: any
-        }
+          ApiKeyAuth: any,
+        },
       ],
       tags: [
         {
           name: "Users",
-          description: "End point users."
-        }
-      ]
+          description: "End point users.",
+        },
+      ],
     };
   }
 }
