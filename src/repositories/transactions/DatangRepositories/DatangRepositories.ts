@@ -57,6 +57,33 @@ export default class DatangRepositories extends RepositoryBase {
     return "Berhasil Edit Data Datang"
   }
 
+  async GetDashboardLaporanDatang (tahun: any, bulan: any, rw: any = "") {
+    const rwOpts = rw === "" ? {} : {rw}
+    const result = await this.Datang.aggregate([
+      {
+        $match: {
+          ...rwOpts,
+          tahun,
+          bulan
+        }
+      },
+      {
+        $addFields: {
+          total: {$sum: ["$laki_laki", "$perempuan"]}
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          kategori: "Datang",
+          total: 1,
+        }
+      }
+    ]);
+
+    return result;
+  }
+
   async getLatestDataDatang(rw: string) {
     const result = await this.Datang.aggregate([
       {

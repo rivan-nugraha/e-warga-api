@@ -74,6 +74,33 @@ export default class PindahRepositories extends RepositoryBase {
     return result;
   }
 
+  async GetDashboardLaporanPindah (tahun: any, bulan: any, rw: any = "") {
+    const rwOpts = rw === "" ? {} : {rw}
+    const result = await this.Pindah.aggregate([
+      {
+        $match: {
+          ...rwOpts,
+          tahun,
+          bulan
+        }
+      },
+      {
+        $addFields: {
+          total: {$sum: ["$laki_laki", "$perempuan"]}
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          kategori: "Pindah",
+          total: 1,
+        }
+      }
+    ]);
+
+    return result;
+  }
+
   async EditDataPindah (rw: any, tahun: any, bulan: any, laki_laki: number, perempuan: number) {
     await this.Pindah.updateMany({ rw, tahun, bulan }, { laki_laki, perempuan });
     return "Berhasil Edit Data Pindah";

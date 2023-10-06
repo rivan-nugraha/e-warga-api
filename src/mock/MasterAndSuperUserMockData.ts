@@ -20,4 +20,11 @@ export const SuperUserMockData = [
     level: "ADM",
     img_url: "-",
   },
+  {
+    username: "admin-kelurahan2",
+    password: "pamoyananjuara",
+    nama_user: "Admin Kelurahan",
+    level: "ADM",
+    img_url: "-",
+  },
 ];

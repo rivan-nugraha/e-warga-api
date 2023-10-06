@@ -74,6 +74,33 @@ export default class MeninggalRepositories extends RepositoryBase {
     return result;
   }
 
+  async GetDashboardLaporanMeninggal (tahun: any, bulan: any, rw: any = "") {
+    const rwOpts = rw === "" ? {} : {rw}
+    const result = await this.Meninggal.aggregate([
+      {
+        $match: {
+          ...rwOpts,
+          tahun,
+          bulan
+        }
+      },
+      {
+        $addFields: {
+          total: {$sum: ["$laki_laki", "$perempuan"]}
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          kategori: "Meninggal",
+          total: 1,
+        }
+      }
+    ]);
+
+    return result;
+  }
+
   async EditDataMeninggal (rw: any, tahun: any, bulan: any, laki_laki: number, perempuan: number) {
     await this.Meninggal.updateMany({ rw, tahun, bulan }, {laki_laki, perempuan});
     return "Berhasil Edit Data Meninggal";

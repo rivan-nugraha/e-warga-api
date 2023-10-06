@@ -86,6 +86,33 @@ export default class WargaRepositories extends RepositoryBase {
     return getCode;
   }
 
+  async GetDashboardLaporanTotalWarga (tahun: any, bulan: any, rw: any = "") {
+    const rwOpts = rw === "" ? {} : {rw}
+    const result = await this.Warga.aggregate([
+      {
+        $match: {
+          ...rwOpts,
+          tahun,
+          bulan
+        }
+      },
+      {
+        $addFields: {
+          total: {$sum: ["$laki_laki", "$perempuan"]}
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          kategori: "Total Warga",
+          total: 1,
+        }
+      }
+    ]);
+
+    return result;
+  }
+
   private _codeGenerator(latest: any, rw: string) {
     let code: string;
     if (latest.length === 0) {

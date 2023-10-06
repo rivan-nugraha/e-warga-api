@@ -74,6 +74,33 @@ export default class LahirRepositories extends RepositoryBase {
     return result;
   }
 
+  async GetDashboardLaporanLahir (tahun: any, bulan: any, rw: any = "") {
+    const rwOpts = rw === "" ? {} : {rw}
+    const result = await this.Lahir.aggregate([
+      {
+        $match: {
+          ...rwOpts,
+          tahun,
+          bulan
+        }
+      },
+      {
+        $addFields: {
+          total: {$sum: ["$laki_laki", "$perempuan"]}
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          kategori: "Lahir",
+          total: 1,
+        }
+      }
+    ]);
+
+    return result;
+  }
+
   async EditDataLahir(rw: any, tahun: any, bulan: any, laki_laki: number, perempuan: number) {
     await this.Lahir.updateMany({ rw, tahun, bulan }, {laki_laki, perempuan});
     return "Berhasil Edit Data Lahir";

@@ -1,3 +1,4 @@
+import DashboardRoutes from "./app/DashboardRoutes/DashboardRoutes";
 import RoutesCollection from "./collections/RouteCollections";
 import BarangRoutes from "./masters/Barang/BarangRoutes";
 import UserRoutes from "./masters/User/UserRoutes";
@@ -14,6 +15,7 @@ class Routes {
   public emitter: any;
   constructor() {
     this.routeBuilders = [
+      // Master And Input
       new BarangRoutes(),
       new SystemRoutes(),
       new UserRoutes(),
@@ -23,7 +25,11 @@ class Routes {
       new DatangRoutes(),
       new PindahRoutes(),
 
-      new LaporanKependudukanRoutes()
+      // Laporan
+      new LaporanKependudukanRoutes(),
+
+      // Apps
+      new DashboardRoutes(),
     ];
   }
 

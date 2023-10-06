@@ -2,18 +2,18 @@ import * as moment from "moment-timezone";
 
 export default class DateFormatService {
   private _months = [
-    "Januari",
-    "Februari",
-    "Maret",
-    "April",
-    "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "Desember",
+    "JANUARI",
+    "FEBRUARI",
+    "MARET",
+    "APRIL",
+    "MEI",
+    "JUNI",
+    "JULI",
+    "AGUSTUS",
+    "SEPTEMBER",
+    "OKTOBER",
+    "NOVEMBER",
+    "DESEMBER",
   ];
 
   localDateTime() {
@@ -41,5 +41,21 @@ export default class DateFormatService {
   localDateStringIndonesia(date: string | Date) {
     const tanggal = date ? new Date(date) : new Date();
     return moment.tz(tanggal, "Asia/Jakarta").format("DD-MM-YYYY");
+  }
+
+  getYear(){
+    const tanggal = new Date();
+    const converted = moment.tz(tanggal, "Asia/Jakarta").format("DD-MM-YYYY");
+    const splitted = converted.split("-");
+    return splitted[2];
+  }
+
+  getMonth(date?: string | Date) {
+    const tanggal = date ? new Date(date) : new Date();
+    const converted = moment.tz(tanggal, "Asia/Jakarta").format("DD-MM-YYYY");
+    const splited = converted.split("-")[1];
+    const toNumber = Number(splited);
+    const month = this._months[toNumber - 1];
+    return month;
   }
 }

@@ -31,6 +31,7 @@ export default class UserController extends ControllerBase {
       const token = this.repository.global.service.security.generateToken(user);
 
       const result = {
+        username: user.username,
         name: user.nama_user,
         level: user.level,
         img_url: user.img_url,
