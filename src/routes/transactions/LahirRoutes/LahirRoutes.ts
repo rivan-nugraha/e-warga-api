@@ -17,6 +17,10 @@ export default class LahirRoutes extends RouteBase {
     this.buildRoute("/lahir/get-lahir", "get", "GetDataLahirByBulanAndTahun", true);
     this.buildRoute("/lahir/edit-lahir", "put", "EditDataLahir", true);
 
+
+    // Apps Endpoint
+    this.buildRoute("/lahir/insert-app", "post", "InsertDataApp", true);
+
     return this.routes;
   }
 }
