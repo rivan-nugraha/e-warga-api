@@ -58,7 +58,7 @@ export default class LahirController extends ControllerBase {
       const ExistedData = await this.repository.Lahir.GetDataLahirByBulanAndTahun(body.rw, body.tahun, body.bulan);
       let response: any;
       if (ExistedData.length > 0) {
-        response = await this.repository.Lahir.EditDataLahir(body.rw, body.tahun, body.bulan, body.laki_laki, body.perempuan);
+        response = await this.repository.Lahir.EditDataLahir(body.rw, body.tahun, body.bulan, Number(body.laki_laki), Number(body.perempuan));
       } else {
         const code_laporan = await this.repository.Lahir.generateKodeLaporanLahir(
           this.body.rw
@@ -68,8 +68,8 @@ export default class LahirController extends ControllerBase {
           rw: this.body.rw,
           bulan: this.body.bulan,
           tahun: this.body.tahun,
-          laki_laki: this.body.laki_laki,
-          perempuan: this.body.perempuan,
+          laki_laki: Number(this.body.laki_laki),
+          perempuan: Number(this.body.perempuan),
         };
   
         response = await this.repository.Lahir.insertLahir(data);

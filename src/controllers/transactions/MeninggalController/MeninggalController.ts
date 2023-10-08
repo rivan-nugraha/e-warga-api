@@ -55,4 +55,33 @@ export default class MeninggalController extends ControllerBase {
       return this.error(error);
     }
   }
+
+  async InsertDataApp () {
+    try {
+      const body = this.body;
+      const ExistedData = await this.repository.Meninggal.GetDataMeninggalByBulanAndTahun(body.rw, body.tahun, body.bulan);
+      let response: any;
+      if (ExistedData.length > 0) {
+        response = await this.repository.Meninggal.EditDataMeninggal(body.rw, body.tahun, body.bulan, body.laki_laki, body.perempuan);
+      } else {
+        const code_laporan = await this.repository.Meninggal.generateKodeLaporanMeninggal(
+          this.body.rw
+        );
+        const data = {
+          kode_laporan_lahir: code_laporan,
+          rw: this.body.rw,
+          bulan: this.body.bulan,
+          tahun: this.body.tahun,
+          laki_laki: this.body.laki_laki,
+          perempuan: this.body.perempuan,
+        };
+  
+        response = await this.repository.Meninggal.insertMeninggal(data);
+      }
+
+      return this.success(response);
+    } catch (error) {
+      return this.error(error);
+    }
+  }
 }

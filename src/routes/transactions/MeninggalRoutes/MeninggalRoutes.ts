@@ -30,7 +30,10 @@ export default class MeninggalRoutes extends RouteBase {
       "put",
       "EditDataMeninggal",
       true
-    )
+    );
+
+    // Apps Endpoint
+    this.buildRoute("/meninggal/insert-app", "post", "InsertDataApp", true);
 
     return this.routes;
   }
