@@ -17,6 +17,9 @@ export default class PindahRoutes extends RouteBase {
     this.buildRoute("/pindah/get-pindah", "get", "GetDataPindahByBulanAndTahun", true);
     this.buildRoute("/pindah/edit-pindah", "put", "EditDataPindah", true);
 
+    // Apps Endpoint
+    this.buildRoute("/pindah/insert-app", "post", "InsertDataApp", true);
+
     return this.routes;
   }
 }

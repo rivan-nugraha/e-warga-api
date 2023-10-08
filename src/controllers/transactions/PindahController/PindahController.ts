@@ -52,4 +52,29 @@ export default class PindahController extends ControllerBase {
       return this.error(error);
     }
   }
+
+  async InsertDataApp () {
+    try {
+      const body = this.body;
+      const ExistedData = await this.repository.Pindah.GetDataPindahByBulanAndTahun(body.rw, body.tahun, body.bulan);
+      let response: any;
+      if(ExistedData.length > 0){
+        response = await this.repository.Pindah.EditDataPindah(body.rw, body.tahun, body.bulan, body.laki_laki, body.perempuan);
+      }else{
+        const code_laporan = await this.repository.Pindah.generateKodeLaporanPindah(body.rw);
+        const data = {
+          kode_laporan_pindah: code_laporan,
+          rw: this.body.rw,
+          bulan: this.body.bulan,
+          tahun: this.body.tahun,
+          laki_laki: this.body.laki_laki,
+          perempuan: this.body.perempuan,
+        }
+        response = await this.repository.Pindah.insertPindah(data);
+      }
+      return this.success(response);
+    } catch (error) {
+      return this.error(error);
+    }
+  }
 }

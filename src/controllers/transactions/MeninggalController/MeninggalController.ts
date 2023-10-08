@@ -68,7 +68,7 @@ export default class MeninggalController extends ControllerBase {
           this.body.rw
         );
         const data = {
-          kode_laporan_lahir: code_laporan,
+          kode_laporan_meninggal: code_laporan,
           rw: this.body.rw,
           bulan: this.body.bulan,
           tahun: this.body.tahun,

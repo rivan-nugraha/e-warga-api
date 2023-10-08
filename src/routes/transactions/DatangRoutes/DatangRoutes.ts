@@ -17,6 +17,9 @@ export default class DatangRoutes extends RouteBase {
     this.buildRoute("/datang/get-datang", "get", "GetDataDatangByBulanAndTahun", true);
     this.buildRoute("/datang/edit-datang", "put", "EditDataDatang", true);
 
+    // Apps Endpoint
+    this.buildRoute("/datang/insert-app", "post", "InsertDataApp", true);
+
     return this.routes;
   }
 }
