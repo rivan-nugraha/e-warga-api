@@ -55,6 +55,7 @@ export default class LahirController extends ControllerBase {
   async InsertDataApp () {
     try {
       const body = this.body;
+      console.log(this.body);
       const ExistedData = await this.repository.Lahir.GetDataLahirByBulanAndTahun(body.rw, body.tahun, body.bulan);
       let response: any;
       if (ExistedData.length > 0) {
