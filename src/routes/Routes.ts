@@ -8,6 +8,7 @@ import DatangRoutes from "./transactions/DatangRoutes/DatangRoutes";
 import LahirRoutes from "./transactions/LahirRoutes/LahirRoutes";
 import MeninggalRoutes from "./transactions/MeninggalRoutes/MeninggalRoutes";
 import PindahRoutes from "./transactions/PindahRoutes/PindahRoutes";
+import ValidasiRoutes from "./transactions/ValidasiRoutes/ValidasiRoutes";
 import WargaRoutes from "./transactions/WargaRoutes/WargaRoutes";
 
 class Routes {
@@ -27,6 +28,7 @@ class Routes {
 
       // Laporan
       new LaporanKependudukanRoutes(),
+      new ValidasiRoutes(),
 
       // Apps
       new DashboardRoutes(),
