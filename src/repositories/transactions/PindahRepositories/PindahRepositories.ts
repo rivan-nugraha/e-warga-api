@@ -145,4 +145,26 @@ export default class PindahRepositories extends RepositoryBase {
 
     return result;
   }
+
+  async GetLaporanKependudukanPindahPerRW(bulan: any, tahun: any, rw: any) {
+    const result = await this.Pindah.aggregate([
+      {
+        $match: {
+          bulan,
+          tahun,
+          rw
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          rw: 1,
+          laki_laki_pindah: "$laki_laki",
+          perempuan_pindah: "$perempuan"
+        }
+      }
+    ]);
+
+    return result;
+  }
 }

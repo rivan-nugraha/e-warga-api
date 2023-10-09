@@ -146,4 +146,27 @@ export default class DatangRepositories extends RepositoryBase {
 
     return result;
   }
+
+  async GetLaporanKependudukanDataDatangPerRW(bulan: any, tahun: any, rw: any){
+    const result = await this.Datang.aggregate([
+      {
+        $match: {
+          bulan,
+          tahun,
+          rw
+        }
+      },
+
+      {
+        $project: {
+          _id: 0,
+          rw: 1,
+          laki_laki_datang: "$laki_laki",
+          perempuan_datang: "$perempuan",
+        }
+      }
+    ]);
+
+    return result;
+  }
 }

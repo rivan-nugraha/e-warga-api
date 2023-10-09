@@ -145,4 +145,26 @@ export default class WargaRepositories extends RepositoryBase {
 
     return result;
   }
+
+  async GetLaporanKependudukanTotalWargaPerRW(bulan: any, tahun: any, rw: any) {
+    const result = await this.Warga.aggregate([
+      {
+        $match: {
+          bulan,
+          tahun,
+          rw
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          rw: 1,
+          laki_laki_total: "$laki_laki",
+          perempuan_total: "$perempuan"
+        }
+      }
+    ]);
+
+    return result;
+  }
 }

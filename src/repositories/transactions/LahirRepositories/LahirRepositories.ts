@@ -145,4 +145,26 @@ export default class LahirRepositories extends RepositoryBase {
 
     return result
   }
+
+  async GetLaporanKependudukanLahirPerRW(bulan: any, tahun: any, rw: any) {
+    const result = await this.Lahir.aggregate([
+      {
+        $match: {
+          bulan,
+          tahun,
+          rw
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          rw: 1,
+          laki_laki_lahir: "$laki_laki",
+          perempuan_lahir: "$perempuan"
+        }
+      }
+    ]);
+
+    return result
+  }
 }

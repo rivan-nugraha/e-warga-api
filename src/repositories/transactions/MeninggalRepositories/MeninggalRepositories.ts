@@ -145,4 +145,26 @@ export default class MeninggalRepositories extends RepositoryBase {
 
     return result;
   }
+
+  async GetLaporanKependudukanMeninggalPerRW (bulan: any, tahun: any, rw: any) {
+    const result = await this.Meninggal.aggregate([
+      {
+        $match: {
+          bulan,
+          tahun,
+          rw
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          rw: 1,
+          laki_laki_meninggal: "$laki_laki",
+          perempuan_meninggal: "$perempuan"
+        }
+      }
+    ]);
+
+    return result;
+  }
 }

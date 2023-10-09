@@ -8,6 +8,7 @@ export default class LaporanKependudukanRoutes extends RouteBase{
 
     getRoutes() {
         this.buildRoute("/laporan-kependudukan", "get", "GetLaporanKependudukan", true);
+        this.buildRoute("/laporan-kependudukan-mobile", "get", "GetLaporanKependudukanMobile", true);
 
         return this.routes;
     }

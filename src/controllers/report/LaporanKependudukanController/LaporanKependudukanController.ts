@@ -53,4 +53,57 @@ export default class LaporanKependudukanController extends ControllerBase{
             return this.error(error);
         }
     }
+
+    async GetLaporanKependudukanMobile () {
+        try {
+            const { bulan, tahun, rw } = this.query;
+            const result: any[] = [];
+            const TotalWarga = await this.repository.Warga.GetLaporanKependudukanTotalWargaPerRW(bulan, tahun, rw);
+            result.push(...TotalWarga);
+            const Datang = await this.repository.Datang.GetLaporanKependudukanDataDatangPerRW(bulan, tahun, rw);
+            result.push(...Datang);
+            const Lahir = await this.repository.Lahir.GetLaporanKependudukanLahirPerRW(bulan, tahun, rw);
+            result.push(...Lahir);
+            const Meninggal = await this.repository.Meninggal.GetLaporanKependudukanMeninggalPerRW(bulan, tahun, rw);
+            result.push(...Meninggal);
+            const Pindah = await this.repository.Pindah.GetLaporanKependudukanPindahPerRW(bulan, tahun, rw);
+            result.push(...Pindah);
+
+            const resultReduced = result.reduce((a: any[], b: any) => {
+                const existedIndex = a.findIndex((data: any) => data.rw === b.rw);
+                if (existedIndex < 0) {
+                    a.push({
+                        rw: b.rw,
+                        laki_laki_total: b.laki_laki_total || 0,
+                        perempuan_total: b.perempuan_total || 0,
+                        laki_laki_datang: b.laki_laki_datang || 0,
+                        perempuan_datang: b.perempuan_datang || 0,
+                        laki_laki_lahir: b.laki_laki_lahir || 0,
+                        perempuan_lahir: b.perempuan_lahir || 0,
+                        laki_laki_meninggal: b.laki_laki_meninggal || 0,
+                        perempuan_meninggal: b.perempuan_meninggal || 0,
+                        laki_laki_pindah: b.laki_laki_pindah || 0,
+                        perempuan_pindah: b.perempuan_pindah || 0,
+                    })
+                }else{
+                    a[existedIndex].laki_laki_total += b.laki_laki_total || 0;
+                    a[existedIndex].perempuan_total += b.perempuan_total || 0;
+                    a[existedIndex].laki_laki_datang += b.laki_laki_datang || 0;
+                    a[existedIndex].perempuan_datang += b.perempuan_datang || 0;
+                    a[existedIndex].laki_laki_lahir += b.laki_laki_lahir || 0;
+                    a[existedIndex].perempuan_lahir += b.perempuan_lahir || 0;
+                    a[existedIndex].laki_laki_meninggal += b.laki_laki_meninggal || 0;
+                    a[existedIndex].perempuan_meninggal += b.perempuan_meninggal || 0;
+                    a[existedIndex].laki_laki_pindah += b.laki_laki_pindah || 0;
+                    a[existedIndex].perempuan_pindah += b.perempuan_pindah || 0;
+                }
+
+                return a
+            }, [])
+
+            return this.success(resultReduced);
+        } catch (error) {
+            return this.error(error);
+        }
+    }
 }
