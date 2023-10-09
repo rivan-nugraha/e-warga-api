@@ -7,7 +7,7 @@ export default class DashboardController extends ControllerBase{
 
             const getYear = this.repository.global.service.dateFormat.getYear();
             const getDate = this.repository.global.service.dateFormat.getMonth();
-            const TotalWarga = this.filtering(await this.repository.Warga.GetDashboardLaporanTotalWarga(getYear, getDate, query.rw), "Total Warga");
+            const TotalWarga = this.filtering(await this.repository.Warga.GetDashboardLaporanTotalWarga(getYear, getDate, query.rw), "Total");
             const Datang = this.filtering(await this.repository.Datang.GetDashboardLaporanDatang(getYear, getDate, query.rw), "Datang");
             const Pindah = this.filtering(await this.repository.Pindah.GetDashboardLaporanPindah(getYear, getDate, query.rw), "Pindah");
             const Lahir = this.filtering(await this.repository.Lahir.GetDashboardLaporanLahir(getYear, getDate, query.rw), "Lahir");

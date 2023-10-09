@@ -104,7 +104,7 @@ export default class WargaRepositories extends RepositoryBase {
       {
         $project: {
           _id: 0,
-          kategori: "Total Warga",
+          kategori: "Total",
           total: 1,
         }
       }
