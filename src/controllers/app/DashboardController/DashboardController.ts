@@ -1,4 +1,4 @@
-import MonthConstant from "src/constant/Month/MonthConstant";
+import MonthConstant from "../../../constant/Month/MonthConstant";
 import ControllerBase from "../../../controllers/base/ControllerBase";
 
 export default class DashboardController extends ControllerBase{

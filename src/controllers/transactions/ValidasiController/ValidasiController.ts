@@ -22,6 +22,5 @@ export class ValidasiController extends ControllerBase{
         } catch (error) {
             return this.error(error);
         }
-
     }
 }
