@@ -65,7 +65,7 @@ export default class DashboardController extends ControllerBase{
 
     async GetDashboardLineChartMobile () {
         try {
-            const { rw } = this.body;
+            const { rw } = this.query;
             const getYear = this.repository.global.service.dateFormat.getYear();
             const result = await this.repository.Warga.DashboardGetTotalWarga(getYear, rw);
             const lahir = await this.repository.Lahir.DashboardGetTotalLahir(getYear, rw);
