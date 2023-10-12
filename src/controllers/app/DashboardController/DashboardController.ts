@@ -1,3 +1,4 @@
+import MonthConstant from "src/constant/Month/MonthConstant";
 import ControllerBase from "../../../controllers/base/ControllerBase";
 
 export default class DashboardController extends ControllerBase{
@@ -60,7 +61,54 @@ export default class DashboardController extends ControllerBase{
         } catch (error) {
             return this.error(error);
         }
-      }
+    }
+
+    async GetDashboardLineChartMobile () {
+        try {
+            const { rw } = this.body;
+            const getYear = this.repository.global.service.dateFormat.getYear();
+            const result = await this.repository.Warga.DashboardGetTotalWarga(getYear, rw);
+            const lahir = await this.repository.Lahir.DashboardGetTotalLahir(getYear, rw);
+            const meninggal = await this.repository.Meninggal.DashboardGetTotalMeninggal(getYear, rw);
+            const datang = await this.repository.Datang.DashboardGetTotalDatang(getYear, rw);
+            const pindah = await this.repository.Pindah.DashboardGetTotalPindah(getYear, rw);
+
+            const resultCounted = MonthConstant.map((el: any) => {
+                const existed = result.find((data: any) => data.bulan === el);
+                const DataLahir = lahir.find((data: any) => data.bulan === el);
+                const DatamMeninggal = meninggal.find((data: any) => data.bulan === el);
+                const DataDatang = datang.find((data: any) => data.bulan === el);
+                const DataPindah = pindah.find((data: any) => data.bulan === el);
+
+                let total = existed ? existed.total : 0;
+                if(DataLahir){
+                    total += lahir.total
+                  }
+            
+                  if(DatamMeninggal){
+                    total -= meninggal.total
+                  }
+            
+                  if(DataDatang){
+                    total += datang.total
+                  }
+            
+                  if(DataPindah){
+                    total -= pindah.total
+                  }
+
+                  return {
+                    _id: el,
+                    bulan: el,
+                    total: total
+                  }
+            })
+
+            return this.success(resultCounted);
+        } catch (error) {
+            return this.error(error);
+        }
+    }
 
     private filtering (arr: any, kategori: string){
         if (arr.length === 0) {
