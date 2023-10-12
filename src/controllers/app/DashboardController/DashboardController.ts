@@ -76,25 +76,25 @@ export default class DashboardController extends ControllerBase{
             const resultCounted = MonthConstant.map((el: any) => {
                 const existed = result.find((data: any) => data.bulan === el);
                 const DataLahir = lahir.find((data: any) => data.bulan === el);
-                const DatamMeninggal = meninggal.find((data: any) => data.bulan === el);
+                const DataMeninggal = meninggal.find((data: any) => data.bulan === el);
                 const DataDatang = datang.find((data: any) => data.bulan === el);
                 const DataPindah = pindah.find((data: any) => data.bulan === el);
 
                 let total = existed ? existed.total : 0;
                 if(DataLahir){
-                    total += lahir.total
+                    total += DataLahir.total
                   }
             
-                  if(DatamMeninggal){
-                    total -= meninggal.total
+                  if(DataMeninggal){
+                    total -= DataMeninggal.total
                   }
             
                   if(DataDatang){
-                    total += datang.total
+                    total += DataDatang.total
                   }
             
                   if(DataPindah){
-                    total -= pindah.total
+                    total -= DataPindah.total
                   }
 
                   return {
