@@ -16,6 +16,33 @@ export default class WargaRepositories extends RepositoryBase {
     return `Success Insert Warga`;
   }
 
+  async DashboardGetTotalWarga (tahun: string, rw: string = "ALL") {
+    const rwOpts = rw === "ALL" ? {} : {rw};
+    const result = await this.Warga.aggregate([
+      {
+        $match: {
+          tahun,
+          ...rwOpts
+        }
+      },
+      {
+        $addFields: {
+          total: {$sum: ["$laki_laki", "$perempuan"]}
+        }
+      },
+      {
+        $group: {
+          _id: "$bulan",
+          bulan: {$first: "$bulan"},
+          tahun: {$first: "$tahun"},
+          total: {$sum: "$total"}
+        }
+      },
+    ]);
+
+    return result;
+  }
+
   async getWargaByBulan(rw: any) {
     const result = await this.Warga.aggregate([
       {

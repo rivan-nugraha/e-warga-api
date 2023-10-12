@@ -167,4 +167,52 @@ export default class PindahRepositories extends RepositoryBase {
 
     return result;
   }
+
+  async GetCardTotalPindahByMonth (bulan: any) {
+    return (await this.Pindah.aggregate([
+      {
+        $match: {
+          bulan
+        }
+      },
+      {
+        $addFields: {
+          total: { $sum: ["$laki_laki", "$perempuan"] }
+        }
+      },
+      {
+        $group: {
+          _id: "$bulan",
+          total: { $sum: "$total" }
+        }
+      }
+    ]))[0];
+  }
+
+  async DashboardGetTotalPindah (tahun: string, rw: string = "ALL") {
+    const rwOpts = rw === "ALL" ? {} : {rw};
+    const result = await this.Pindah.aggregate([
+      {
+        $match: {
+          tahun,
+          ...rwOpts
+        }
+      },
+      {
+        $addFields: {
+          total: {$sum: ["$laki_laki", "$perempuan"]}
+        }
+      },
+      {
+        $group: {
+          _id: "$bulan",
+          bulan: {$first: "$bulan"},
+          tahun: {$first: "$tahun"},
+          total: {$sum: "$total"}
+        }
+      },
+    ]);
+
+    return result;
+  }
 }

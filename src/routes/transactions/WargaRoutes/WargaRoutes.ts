@@ -33,6 +33,14 @@ export default class WargaRoutes extends RouteBase {
       "put",
       "EditTotalWarga",
       true
+    );
+
+    // Dashboard
+    this.buildRoute(
+      "/dashboard/total-warga",
+      "get",
+      "DashboardGetTotalWarga",
+      true
     )
 
     return this.routes;

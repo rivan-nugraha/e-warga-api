@@ -46,7 +46,14 @@ export default class LaporanKependudukanController extends ControllerBase{
                 }
 
                 return a
-            }, [])
+            }, []);
+
+            resultReduced.sort((a: any, b: any) => {
+                if(a.rw < b.rw){
+                    return -1;
+                }
+                return 0;
+            })
 
             return this.success(resultReduced);
         } catch (error) {

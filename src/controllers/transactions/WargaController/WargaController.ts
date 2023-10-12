@@ -31,6 +31,16 @@ export default class WargaController extends ControllerBase {
     }
   }
 
+  async DashboardGetTotalWarga () {
+    try {
+      const getYear = this.repository.global.service.dateFormat.getYear();
+      const result = await this.repository.Warga.DashboardGetTotalWarga(getYear);
+      return this.success(result);
+    } catch (error) {
+      return this.error(error);
+    }
+  }
+
   async GetTotalWargaByBulanAndTahun () {
     try {
       const query = this.query;

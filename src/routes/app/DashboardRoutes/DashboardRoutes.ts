@@ -8,7 +8,9 @@ export default class DashboardRoutes extends RouteBase{
 
     getRoutes () {
         this.buildRoute("/app/dashboard", "get", "GetLaporanKependudukanBulanIni", false)
-
+        this.buildRoute("/dashboard/card", "get", "GetDashboardWeb", true);
+        this.buildRoute("/dashboard/line-chart", "get", "GetDashboardLineChart", true);
+        
         return this.routes
     }
 }
